@@ -10,7 +10,12 @@ snake[0] = {
 
 //direção
 let direction = "right";
-
+//comida
+let food = {
+    //gerar posições aleatorias,
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 function criarBG(){
     context.fillStyle = "lightgreen";
@@ -20,9 +25,16 @@ function criarBG(){
 function criarCobrinha(){
     for(i=0; i<snake.length;i++){
         context.fillStyle = "green";
-        context.fillRect(snake[i].x, snake[i].y,box,box); //tamanho da cobra
+        context.fillRect(snake[i].x, snake[i].y,box,box); //tamanho da cobra       
+        
     }
 }
+
+function desenharComida(){
+    context.fillStyle = "red";
+    context.fillRect(food.x,food.y,box,box);
+}
+
 
 //CRIANDO EVENTO PARA O RECONHECIMENTO DOS COMANDOS DE MOVIMENTO E ATUALIZAÇÃO DA DIRECTION
 document.addEventListener('keydown',update); //chama a update 
@@ -53,6 +65,7 @@ function iniciarJogo(){
 
     criarBG();
     criarCobrinha();
+    desenharComida();
 
 //MOVIMENTAÇÃO DA COBRA
     let movHorizontal = snake[0].x;
@@ -65,9 +78,18 @@ function iniciarJogo(){
         movVertical -=box;
     if(direction == "down") 
         movVertical += box;
+
+
    //1) RETIRA O QUADRADO
-    snake.pop();
-   //2) ADICIONA UMA NOVA "CABECA", FAZENDO  A COBRA SE MOVER
+   if(movHorizontal!=food.x || movVertical != food.y){
+    snake.pop(); // caso a posição da cobra seja diferente da posição da comida, ela continua tendo apenas um "quadrado"
+   }
+   else{
+       food.x = Math.floor(Math.random() * 15 + 1) * box;
+       food.y = Math.floor(Math.random() * 15 + 1) * box;
+   } 
+    
+   //2) ADICIONA UMA NOVA "CABECA", FAZENDO  A COBRA SE MOVER E, CASO NAO ENTRE NO IF ACIMA, A COBRA CRESCE
     let cabeca = {
         x: movHorizontal,
         y: movVertical
