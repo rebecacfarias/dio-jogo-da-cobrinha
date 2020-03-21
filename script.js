@@ -62,6 +62,15 @@ function iniciarJogo(){
         snake[0].y = 0;
      if(snake[0].y < 0 && direction == "up")
         snake[0].y = 16*box;
+  // CHECANDO SE A CABEÇA DA COBRA CHOCOU COM O CORPO
+    //começa de 1 pois a cabeça( pos 0 ) é a referencia de comparação
+    for(i = 1;i<snake.length;i++){
+        if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
+            clearInterval(jogo);
+            alert('GAME OVER :(');
+            alert('F5 TO PLAY AGAIN');
+        }
+    }    
 
     criarBG();
     criarCobrinha();
