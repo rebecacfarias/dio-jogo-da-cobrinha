@@ -24,28 +24,54 @@ function criarCobrinha(){
     }
 }
 
+//CRIANDO EVENTO PARA O RECONHECIMENTO DOS COMANDOS DE MOVIMENTO E ATUALIZAÇÃO DA DIRECTION
+document.addEventListener('keydown',update); //chama a update 
+
+//update realiza as alterações de acordo com a tecla pressionada
+function update(event){
+    //37 esquerda, 38 cima, 39 direita, 40 baixo
+    if(event.keyCode == 37 && direction != "right")
+        direction = "left";
+    else if(event.keyCode == 38 && direction != "down")
+        direction = "up";
+    else if(event.keyCode == 39 && direction != "left")
+        direction = "right";
+    else if(event.keyCode == 40 && direction != "up")
+        direction = "down";
+}
+
 //função que vai receber as outras para fazer o jogo acontecer
 function iniciarJogo(){
+     if(snake[0].x > 15*box && direction == "right")
+        snake[0].x = 0;
+     if(snake[0].x < 0 && direction == "left")
+        snake[0].x = 16*box;
+     if(snake[0].y > 15*box && direction == "down")
+        snake[0].y = 0;
+     if(snake[0].y < 0 && direction == "up")
+        snake[0].y = 16*box;
+
     criarBG();
     criarCobrinha();
 
 //MOVIMENTAÇÃO DA COBRA
-
     let movHorizontal = snake[0].x;
     let movVertical = snake[0].y;
-    if(direction == "right") movHorizontal+=box;
-    if(direction == "left") movHorizontal-=box;
-    if(direction == "up") movVertical -=box;
-    if(direction == "down") movVertical += box;
+    if(direction == "right") 
+        movHorizontal+=box;
+    if(direction == "left") 
+        movHorizontal-=box;
+    if(direction == "up") 
+        movVertical -=box;
+    if(direction == "down") 
+        movVertical += box;
    //1) RETIRA O QUADRADO
-    snake.pop(); // vai retirar o último elemento, para que o quadrado se "mova"
-
-   //2) ADICIONA UMA NOVA "CABECA"
+    snake.pop();
+   //2) ADICIONA UMA NOVA "CABECA", FAZENDO  A COBRA SE MOVER
     let cabeca = {
         x: movHorizontal,
         y: movVertical
     }
-
     snake.unshift(cabeca);
 }
 // a cada 100 milisegundos será renovada para que ocorra a movimentação
