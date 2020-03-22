@@ -1,9 +1,24 @@
 body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     height: 95vh;
     width: 95;
     display: flex;
     justify-content:center;
     align-items: center;
     flex-direction: column;
-    color: rgb(3, 29, 3);
+    color: rgb(182, 145, 145);
+    background-color:black;
+}
+
+img{
+    padding: 5px;
+}
+canvas{
+    border-radius: 30px;
+}
+
+h1{
+    border-style: dotted;
+    padding: 10px;
+    border-radius: 30px;
 }

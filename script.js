@@ -1,8 +1,19 @@
+/**
+ * SUSUWATARI GAME
+ * JOGO DA COBRINHA - VERSÃO SUSUWATARI E ESTRELA
+ * susuwataris preenchem o corpo da cobra, a estrela é a comida
+ */
+
+
 let canvas = document.getElementById("snake"); //trabalha a parte grafica do jogo
 let context = canvas.getContext("2d"); //renderiza o desenho dentro do canvas
+let susuwatari = document.getElementById("susuwatari");
+let star = document.getElementById("dustybunny");
+
 let box = 32; //32 pixels, "quadrados" que vao compor o jogo
+let imgbox = 40;
 let snake = [];
-//tamanho dos elementos que vao compor a cobra
+//tamanho dos elementos que vao compor a cobra (susuwataris)
 snake[0] = {
     x: 8*box,
     y: 8*box
@@ -18,21 +29,26 @@ let food = {
 }
 
 function criarBG(){
-    context.fillStyle = "lightgreen";
+    context.fillStyle = "rgb(182, 145, 145)";
     context.fillRect(0,0,16*box,16*box); //onde acontece o jogo, pos x,y,altura,largura
 }
 
+
 function criarCobrinha(){
+    //let pat = context.createPattern(img,'repeat');
     for(i=0; i<snake.length;i++){
-        context.fillStyle = "green";
-        context.fillRect(snake[i].x, snake[i].y,box,box); //tamanho da cobra       
-        
+         
+        context.drawImage(susuwatari,snake[i].x,snake[i].y,imgbox,imgbox);
+        context.strokeStyle = "rgb(182, 145, 145)";
+        context.strokeRect(snake[i].x, snake[i].y,imgbox,imgbox); //tamanho da cobra       
+        //context.fill(snake[i].x, snake[i].y,box,box);
     }
 }
 
 function desenharComida(){
-    context.fillStyle = "red";
-    context.fillRect(food.x,food.y,box,box);
+    context.drawImage(star,food.x,food.y,imgbox,imgbox);
+    context.strokeStyle = "rgb(182, 145, 145)";
+    context.strokeRect(food.x,food.y,imgbox,imgbox);
 }
 
 
@@ -68,7 +84,6 @@ function iniciarJogo(){
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
             clearInterval(jogo);
             alert('GAME OVER :(');
-            alert('F5 TO PLAY AGAIN');
         }
     }    
 
